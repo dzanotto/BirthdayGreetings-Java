@@ -11,8 +11,10 @@ import javax.mail.internet.*;
 public class Main {
 
 	public static void main(String[] args) throws AddressException, IOException, ParseException, MessagingException {
-		BirthdayService service = new BirthdayService(new FileSystemEmployeeRepository("employee_data.txt"));
-		service.sendGreetings(new XDate(), "localhost", 25);
+		BirthdayService service = new BirthdayService(
+				new FileSystemEmployeeRepository("employee_data.txt"),
+				new EmailService("localhost", 25));
+		service.sendGreetings(new XDate());
 	}
 
 }
