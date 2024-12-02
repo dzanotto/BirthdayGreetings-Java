@@ -1,4 +1,4 @@
-package cleancode;
+package cleancode.domain;
 
 public class Employee {
 

@@ -1,6 +1,9 @@
 package cleancode;
 
+import cleancode.domain.XDate;
+import cleancode.infrastructure.EmailSender;
 import cleancode.infrastructure.FileSystemEmployeeRepository;
+import cleancode.usecase.SendGreetings;
 
 import java.io.*;
 import java.text.ParseException;
@@ -11,9 +14,9 @@ import javax.mail.internet.*;
 public class Main {
 
 	public static void main(String[] args) throws AddressException, IOException, ParseException, MessagingException {
-		BirthdayService service = new BirthdayService(
+		SendGreetings service = new SendGreetings(
 				new FileSystemEmployeeRepository("employee_data.txt"),
-				new EmailService("localhost", 25));
+				new EmailSender("localhost", 25));
 		service.sendGreetings(new XDate());
 	}
 

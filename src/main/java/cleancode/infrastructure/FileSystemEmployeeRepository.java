@@ -1,6 +1,6 @@
 package cleancode.infrastructure;
 
-import cleancode.Employee;
+import cleancode.domain.Employee;
 import cleancode.domain.EmployeeRepository;
 
 import java.io.BufferedReader;

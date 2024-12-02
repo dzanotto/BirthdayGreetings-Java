@@ -1,4 +1,6 @@
-package cleancode;
+package cleancode.infrastructure;
+
+import cleancode.domain.MessageSender;
 
 import javax.mail.Message;
 import javax.mail.Session;
@@ -6,17 +8,18 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class EmailService {
+public class EmailSender implements MessageSender {
 
     private final String smtpHost;
     private final int smtpPort;
 
-    public EmailService(String smtpHost, int smtpPort) {
+    public EmailSender(String smtpHost, int smtpPort) {
         this.smtpHost = smtpHost;
         this.smtpPort = smtpPort;
     }
 
-    protected void sendMessage(String sender, String subject, String body, String recipient) {
+    @Override
+    public void sendMessage(String sender, String subject, String body, String recipient) {
         try {
             // Create a mail session
             java.util.Properties props = new java.util.Properties();
