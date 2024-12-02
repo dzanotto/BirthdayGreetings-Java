@@ -1,15 +1,24 @@
-package cleancode;
+package cleancode.infrastructure;
+
+import cleancode.Employee;
+import cleancode.domain.EmployeeRepository;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeRepository {
+public class FileSystemEmployeeRepository implements EmployeeRepository {
 
-    public List<Employee> findAll(String fileName) throws IOException {
+    String fileName;
+
+    public FileSystemEmployeeRepository(String fileName) {
+        this.fileName = fileName;
+    }
+
+    @Override
+    public List<Employee> findAll() throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(fileName));
         in.readLine(); // skip header
         String str = "";

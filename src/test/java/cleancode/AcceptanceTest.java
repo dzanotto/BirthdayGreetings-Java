@@ -1,5 +1,6 @@
 package cleancode;
 
+import cleancode.infrastructure.FileSystemEmployeeRepository;
 import com.dumbster.smtp.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +19,7 @@ public class AcceptanceTest {
 	@BeforeEach
 	public void setUp() {
 		mailServer = SimpleSmtpServer.start(NONSTANDARD_PORT);
-		birthdayService = new BirthdayService();
+		birthdayService = new BirthdayService(new FileSystemEmployeeRepository("employee_data.txt"));
 	}
 
 	@AfterEach
@@ -30,7 +31,7 @@ public class AcceptanceTest {
 	@Test
 	public void willSendGreetings_whenItsSomebodysBirthday() throws Exception {
 
-		birthdayService.sendGreetings("employee_data.txt", new XDate("2008/10/08"), "localhost", NONSTANDARD_PORT);
+		birthdayService.sendGreetings(new XDate("2008/10/08"), "localhost", NONSTANDARD_PORT);
 
 		assertThat(mailServer.getReceivedEmailSize()).isEqualTo(1);
 		SmtpMessage message = (SmtpMessage) mailServer.getReceivedEmail().next();
@@ -43,7 +44,7 @@ public class AcceptanceTest {
 
 	@Test
 	public void willNotSendEmailsWhenNobodysBirthday() throws Exception {
-		birthdayService.sendGreetings("employee_data.txt", new XDate("2008/01/01"), "localhost", NONSTANDARD_PORT);
+		birthdayService.sendGreetings(new XDate("2008/01/01"), "localhost", NONSTANDARD_PORT);
 
 		assertThat(mailServer.getReceivedEmailSize()).isEqualTo(0);
 	}

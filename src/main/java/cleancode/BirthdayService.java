@@ -1,9 +1,8 @@
 package cleancode;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import cleancode.domain.EmployeeRepository;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.Message;
@@ -14,9 +13,14 @@ import javax.mail.internet.MimeMessage;
 
 public class BirthdayService {
 
-    public void sendGreetings(String fileName, XDate xDate, String smtpHost, int smtpPort) throws IOException {
-        EmployeeRepository employeeRepository = new EmployeeRepository();
-        List<Employee> employees = employeeRepository.findAll(fileName);
+    private EmployeeRepository employeeRepository;
+    
+    public BirthdayService(EmployeeRepository repository) {
+        employeeRepository = repository;
+    }
+
+    public void sendGreetings(XDate xDate, String smtpHost, int smtpPort) throws IOException {
+        List<Employee> employees = employeeRepository.findAll();
 
         for (Employee employee : employees) {
             if (employee.isBirthday(xDate)) {
