@@ -10,8 +10,8 @@ import java.util.List;
 
 public class SendGreetings {
 
-    private EmployeeRepository employeeRepository;
-    private MessageSender messageSender;
+    private final EmployeeRepository employeeRepository;
+    private final MessageSender messageSender;
 
     public SendGreetings(EmployeeRepository employeeRepository, MessageSender messageSender) {
         this.employeeRepository = employeeRepository;
